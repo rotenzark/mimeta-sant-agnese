@@ -1,0 +1,291 @@
+/* PLUMBING_V 1 — reset tecnico canonico (Toolkit/boilerplate/plumbing.css) */
+[hidden] { display: none !important; }
+img { max-width: 100%; height: auto; }
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; scroll-behavior: auto !important; }
+}
+
+/* ══════════ MIMETA ITALIAN BAR — Via Sant'Agnese 16 ══════════
+   «Mangia. Bevi. Rilassati.» (loro, 2023) e i loro cartellini «MANGIAMI» / «BEVIMI». Il bar fra Cadorna e la Cattolica: i tavolini
+   verdi, le sedie dorate a riccioli, il bancone di pietra bianca con la luce turchese, l'insegna verde petrolio. Le feste di laurea.
+   La firma è la corona di laurea attorno al calice (_mmt_firma.mjs). */
+:root {
+  --crema: #F6F2EA;
+  --carta: #FFFDF8;
+  --velo: #E8F1EF;
+  --petrolio: #1F6461;
+  --scuro: #154542;
+  --inchiostro: #183634;
+  --oro: #C9A13B;
+  --oro-chiaro: #F3DFA8;
+  --turchese: #3FC7C0;
+  --turchese-chiaro: #9BE7E2;
+  --rosso: #C8322B;
+  --grigio: #4F625F;
+  --aperto: #1D6B45;
+  --f-marchio: 'Varela', 'Segoe UI', Arial, sans-serif;
+  --f-titoli: 'Yanone Kaffeesatz', 'Arial Narrow', sans-serif;
+  --f-testo: 'Average Sans', 'Segoe UI', Arial, sans-serif;
+  --gutter: 16px;
+  --testata-h: 71px;
+}
+@media (min-width: 760px) { :root { --gutter: 24px; } }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { scroll-behavior: smooth; -webkit-text-size-adjust: 100%; }
+body { margin: 0; color: var(--inchiostro); font: 400 1.1rem/1.62 var(--f-testo); background: var(--crema); }
+a { color: var(--petrolio); }
+/* Varela e Average Sans hanno un solo peso: il «grassetto» è Varela, mai finto */
+b, strong { font-family: var(--f-marchio); font-weight: 400; }
+.salta { position: absolute; left: 12px; top: -60px; z-index: 100; padding: 10px 16px; background: #fff; color: #111; font-family: var(--f-marchio); text-decoration: none; }
+.salta:focus { top: 10px; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+section[id] { scroll-margin-top: calc(var(--testata-h) + 14px); }
+.intero { white-space: nowrap; }
+:focus-visible { outline: 3px solid var(--rosso); outline-offset: 2px; }
+/* finché i caratteri non arrivano il ripiego è più largo: una parola lunga va a capo invece di uscire (riserva-check, #233) */
+h1, h2, h3, .marchio__nome, .piede__marchio, .cartellino { overflow-wrap: anywhere; }
+
+/* ── la testata: l'insegna verde petrolio e, sotto, la linea di luce turchese del loro bancone ── */
+.testata { position: sticky; top: 0; z-index: 50; background: var(--scuro); color: #FFFFFF; box-shadow: 0 3px 0 var(--turchese), 0 8px 18px -8px rgba(63, 199, 192, .75); }
+.testata__dentro { display: flex; align-items: center; gap: 10px; max-width: 1240px; margin: 0 auto; padding: 8px var(--gutter); min-height: 68px; }
+.marchio { display: inline-flex; flex-direction: column; min-width: 0; flex: 0 1 auto; color: #FFFFFF; text-decoration: none; line-height: 1; }
+.marchio__nome { font: 400 1.85rem/1.05 var(--f-marchio); letter-spacing: .01em; }
+.marchio__sotto { margin-top: 3px; font: 600 .92rem/1 var(--f-titoli); letter-spacing: .3em; text-transform: uppercase; color: var(--turchese); }
+.voci { display: none; }
+.testata__azioni { margin-left: auto; display: flex; align-items: center; gap: 6px; flex: none; }
+.lingue { display: flex; }
+.lingue button { min-width: 34px; min-height: 38px; padding: 0 5px; border: 1px solid rgba(255, 255, 255, .5); background: transparent; color: #FFFFFF; font: 400 .9rem var(--f-marchio); cursor: pointer; }
+.lingue button + button { border-left: 0; }
+.lingue button.is-on { background: var(--turchese); border-color: var(--turchese); color: var(--scuro); }
+.chiama { display: none; align-items: center; min-height: 40px; padding: 0 16px; border-radius: 8px; background: var(--crema); color: var(--scuro); font: 400 .98rem var(--f-marchio); text-decoration: none; }
+.chiama:hover { background: #FFFFFF; }
+.burger { display: inline-flex; flex-direction: column; justify-content: center; gap: 5px; width: 44px; height: 44px; padding: 10px; border: 1px solid rgba(255, 255, 255, .5); border-radius: 8px; background: transparent; cursor: pointer; }
+.burger span { display: block; height: 2px; background: #FFFFFF; transition: transform .2s, opacity .2s; }
+.burger[aria-expanded="true"] span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+.burger[aria-expanded="true"] span:nth-child(2) { opacity: 0; }
+.burger[aria-expanded="true"] span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+.menu-mobile { position: fixed; top: var(--testata-h); left: 0; right: 0; z-index: 49; max-height: calc(100vh - var(--testata-h)); overflow-y: auto; padding: 12px var(--gutter) 22px; background: var(--scuro); box-shadow: 0 10px 24px rgba(0, 0, 0, .3); }
+.menu-mobile a { display: block; padding: 10px 2px 8px; border-bottom: 1px solid rgba(255, 255, 255, .2); color: #FFFFFF; font: 600 1.6rem/1.25 var(--f-titoli); letter-spacing: .04em; text-transform: uppercase; text-decoration: none; }
+.menu-mobile__tel, .menu-mobile__wa { display: flex !important; justify-content: center; gap: 8px; margin-top: 12px; border: 0 !important; border-radius: 8px; font: 400 1.08rem/1.3 var(--f-marchio) !important; text-transform: none !important; letter-spacing: 0 !important; padding: 13px 8px !important; }
+.menu-mobile__tel { background: var(--crema); color: var(--scuro) !important; }
+.menu-mobile__wa { background: var(--turchese); color: var(--scuro) !important; }
+
+/* ── l'apertura ── */
+.apertura { display: grid; gap: 30px; padding: 38px max(var(--gutter), calc((100% - 1240px) / 2)) 56px; background: var(--crema); }
+.apertura__sopra { margin: 0 0 12px; font: 600 1.08rem/1.35 var(--f-titoli); letter-spacing: .14em; text-transform: uppercase; color: var(--petrolio); }
+.apertura__titolo { max-width: 9em; margin: 0 0 18px; font: 700 clamp(3.1rem, 2rem + 4.6vw, 5.6rem)/.96 var(--f-titoli); letter-spacing: .01em; text-transform: uppercase; color: var(--scuro); }
+.apertura__frase { max-width: 31em; margin: 0 0 24px; font-size: 1.16rem; }
+.citazione { max-width: 30em; margin: 0 0 22px; }
+.citazione p { display: inline; margin: 0; padding: 0 .12em; font: 400 clamp(1.35rem, 1.1rem + .8vw, 1.7rem)/1.45 var(--f-marchio); color: var(--scuro); background: linear-gradient(transparent 62%, rgba(63, 199, 192, .42) 62%); -webkit-box-decoration-break: clone; box-decoration-break: clone; }
+.citazione footer { margin-top: 8px; font-size: .98rem; color: var(--grigio); }
+.voto { display: flex; flex-wrap: wrap; align-items: baseline; gap: 2px 10px; margin: 0; }
+.voto__n { font: 700 3rem/1 var(--f-titoli); color: var(--scuro); }
+.voto__su { font-size: 1.02rem; }
+.voto--sezione { margin: -4px 0 30px; }
+.stato { display: inline-flex; align-items: center; gap: 8px; margin: 16px 0 0; font: 400 1rem/1.4 var(--f-marchio); color: var(--inchiostro); }
+.stato::before { content: ''; width: 10px; height: 10px; border-radius: 50%; background: currentColor; opacity: .45; flex: none; }
+.stato.is-aperto { color: var(--aperto); }
+.stato.is-aperto::before { opacity: 1; box-shadow: 0 0 0 3px rgba(29, 107, 69, .2); }
+.apertura__azioni { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+.bottone { display: inline-flex; align-items: center; justify-content: center; min-height: 50px; padding: 0 22px; border: 2px solid var(--petrolio); border-radius: 8px; background: transparent; color: var(--petrolio); font: 400 1.04rem/1.15 var(--f-marchio); text-align: center; text-decoration: none; cursor: pointer; transition: background .15s, color .15s, border-color .15s; }
+.bottone--pieno { background: var(--petrolio); color: #FFFFFF; }
+.bottone--pieno:hover { background: var(--scuro); border-color: var(--scuro); }
+.bottone--vuoto:hover { background: var(--petrolio); color: #FFFFFF; }
+
+/* la corona: la firma */
+.apertura__firma { width: 100%; max-width: 600px; justify-self: center; }
+.coronata { margin: 0; -webkit-user-select: none; user-select: none; }
+.corona__svg { border-radius: 18px; box-shadow: 0 0 0 1px #DCD3C2, 0 26px 40px -30px rgba(21, 69, 66, .9); }
+.coronata__didascalia { min-height: 3em; margin: 14px 0 0; font-size: 1.06rem; line-height: 1.45; text-align: center; }
+.coronata__d { display: none; }
+.coronata[data-modo="0"] .coronata__d[data-m="0"], .coronata[data-modo="1"] .coronata__d[data-m="1"], .coronata[data-modo="2"] .coronata__d[data-m="2"] { display: inline; }
+.coronata__modi { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 12px; }
+.coronata__modi button { min-height: 44px; padding: 2px 20px 0; border: 2px solid var(--petrolio); border-radius: 8px; background: var(--carta); color: var(--scuro); font: 600 1.28rem/1 var(--f-titoli); letter-spacing: .08em; text-transform: uppercase; cursor: pointer; }
+.coronata__modi button:hover { background: var(--velo); }
+.coronata__modi button[aria-pressed="true"] { background: var(--petrolio); color: #FFFFFF; }
+/* senza JS il bicchiere non cambia: i bottoni restano nascosti col loro posto (#240) */
+.no-js .coronata__modi { visibility: hidden; }
+.apertura__nota { max-width: 36em; margin: 14px auto 0; font-size: .98rem; color: var(--grigio); text-align: center; }
+
+/* ── i capitoli ── */
+.capitolo { padding: 70px max(var(--gutter), calc((100% - 1180px) / 2)) 68px; }
+.capitolo--bevi { background: var(--velo); }
+.capitolo--rilassati, .capitolo--orari { background: var(--carta); }
+.capitolo__testa { margin-bottom: 30px; }
+.etichetta { margin: 0; font: 600 1.1rem/1.3 var(--f-titoli); letter-spacing: .18em; text-transform: uppercase; color: var(--petrolio); }
+.capitolo__titolo { max-width: 16em; margin: 8px 0 14px; font: 700 clamp(2.4rem, 1.7rem + 2.8vw, 3.7rem)/1 var(--f-titoli); text-transform: uppercase; color: var(--scuro); text-wrap: balance; }
+.capitolo__sotto { max-width: 42em; margin: 0; font-size: 1.12rem; }
+figure { margin: 0; }
+figcaption { margin-top: 8px; font-size: .96rem; color: var(--grigio); }
+.foto { display: block; width: 100%; padding: 0; border: 0; background: none; cursor: zoom-in; }
+.foto img { display: block; width: 100%; height: auto; border-radius: 10px; }
+.taglio { font-style: normal; font-family: var(--f-testo); }
+
+/* il cartellino: come quelli del loro vecchio sito, «MANGIAMI» e «BEVIMI», appeso a un filo */
+.cartellino { position: relative; display: inline-block; margin: 14px 0 10px 18px; padding: 6px 18px 4px 34px; border: 2px solid var(--oro); border-radius: 4px 10px 10px 4px; background: var(--carta); font: 700 1.5rem/1.1 var(--f-titoli); letter-spacing: .14em; text-transform: uppercase; color: var(--scuro); transform: rotate(-3deg); box-shadow: 0 8px 14px -12px rgba(21, 69, 66, .9); }
+.cartellino::before { content: ''; position: absolute; left: 11px; top: 50%; width: 11px; height: 11px; margin-top: -6px; border: 2px solid var(--oro); border-radius: 50%; background: var(--crema); }
+.cartellino::after { content: ''; position: absolute; left: -16px; top: -12px; width: 34px; height: 2px; background: #8A6A3A; transform-origin: 100% 50%; transform: translate(0, 0) rotate(38deg); }
+
+/* mangia e bevi: il listino sul verde dei loro tavolini, accanto le foto */
+.doppia { display: grid; gap: 26px; align-items: start; }
+.listino { padding: 26px 24px 18px; border-radius: 14px; background: var(--scuro); color: var(--crema); box-shadow: inset 0 0 0 8px var(--scuro), inset 0 0 0 9px rgba(201, 161, 59, .65), 0 22px 34px -28px rgba(21, 69, 66, .9); }
+.listino__voce { padding: 4px 6px 14px; }
+.listino__voce + .listino__voce { padding-top: 14px; border-top: 1px dashed rgba(246, 242, 234, .3); }
+.listino__voce h3 { margin: 0 0 4px; font: 600 1.7rem/1.1 var(--f-titoli); letter-spacing: .05em; text-transform: uppercase; color: var(--turchese); }
+.listino__voce p { margin: 0; font-size: 1.06rem; line-height: 1.5; }
+.doppia__lato, .doppia__col { display: grid; gap: 22px; align-content: start; }
+.asporto { padding: 20px 22px 16px; border: 2px dashed var(--rosso); border-radius: 12px; background: var(--carta); }
+.asporto__loro { margin: 0 0 8px; font: 700 1.7rem/1.1 var(--f-titoli); letter-spacing: .03em; color: var(--rosso); }
+.asporto__lista { margin: 0; padding: 0; list-style: none; }
+.asporto__lista li { position: relative; padding: 4px 0 4px 22px; }
+.asporto__lista li::before { content: ''; position: absolute; left: 2px; top: .72em; width: 9px; height: 9px; border-radius: 50%; background: var(--turchese); }
+.tre-foto { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; align-items: start; }
+.tre-foto__nota { margin: 0; font-size: .96rem; color: var(--grigio); }
+
+/* rilassati: la sala, le foto intere in colonne */
+.sala { columns: 1; column-gap: 20px; }
+.sala figure { break-inside: avoid; margin-bottom: 22px; }
+
+/* feste di laurea: il verde dell'insegna, la corona d'alloro e il nastro */
+.capitolo--feste { background: var(--petrolio); color: #FFFFFF; text-align: center; }
+.capitolo--feste .etichetta { color: var(--turchese-chiaro); }
+.capitolo--feste .capitolo__titolo { max-width: none; margin-left: auto; margin-right: auto; color: #FFFFFF; }
+.feste__alloro { display: block; width: 190px; height: auto; margin: 0 auto 10px; }
+.feste__ramo { fill: none; stroke: var(--oro); stroke-width: 3; stroke-linecap: round; }
+.feste__foglie { fill: var(--oro); }
+.feste__nastro { fill: var(--rosso); }
+.feste__loro { max-width: 34em; margin: 0 auto 32px; font: 400 clamp(1.15rem, 1rem + .6vw, 1.4rem)/1.5 var(--f-marchio); color: var(--oro-chiaro); }
+.feste { display: grid; gap: 18px; max-width: 980px; margin: 0 auto; text-align: left; }
+.festa { padding: 22px 22px 18px; border: 1px solid rgba(243, 223, 168, .55); border-radius: 12px; background: rgba(21, 69, 66, .55); }
+.festa__titolo { margin: 0 0 8px; font: 700 1.9rem/1.1 var(--f-titoli); letter-spacing: .04em; text-transform: uppercase; color: var(--turchese-chiaro); }
+.festa p { margin: 0 0 10px; }
+.festa__loro { font-family: var(--f-marchio); color: var(--oro-chiaro); }
+.feste__azioni { display: flex; flex-wrap: wrap; justify-content: center; gap: 12px; margin: 30px 0 0; }
+.bottone--chiaro { border-color: var(--crema); background: var(--crema); color: var(--scuro); }
+.bottone--chiaro:hover { background: #FFFFFF; border-color: #FFFFFF; }
+.bottone--filo { border-color: var(--crema); color: #FFFFFF; }
+.bottone--filo:hover { background: var(--scuro); }
+.feste__nota { max-width: 40em; margin: 22px auto 0; font-size: 1rem; color: #DCE9E6; }
+
+/* dicono: le recensioni in colonne, la lingua in alto */
+.recensioni { columns: 1; column-gap: 22px; margin: 0; padding: 0; list-style: none; }
+.recensione { position: relative; break-inside: avoid; margin-bottom: 22px; padding: 26px 22px 18px; border-radius: 12px; background: var(--carta); box-shadow: inset 0 4px 0 var(--turchese), 0 16px 28px -24px rgba(21, 69, 66, .8); }
+.recensione__lingua { position: absolute; top: 14px; right: 14px; padding: 3px 8px 1px; border-radius: 4px; background: var(--velo); font: 600 .95rem/1.1 var(--f-titoli); letter-spacing: .12em; color: var(--scuro); }
+.recensione__testo { margin: 0; padding-right: 30px; font-size: 1.04rem; line-height: 1.6; }
+.recensione__chi { margin: 12px 0 0; font-size: .96rem; line-height: 1.5; color: var(--grigio); }
+.recensione__chi b { display: block; font-size: 1.08rem; line-height: 1.35; color: var(--scuro); }
+.dicono__nota { max-width: 46em; margin: 8px 0 0; font-size: 1rem; }
+
+/* orari e dove */
+.stato--settimana { margin: -4px 0 20px; }
+.orari-dove { display: grid; gap: 34px; align-items: start; }
+.orari { max-width: 540px; padding: 12px 18px; border-radius: 12px; background: #FFFFFF; box-shadow: inset 0 0 0 1px #DCE3E0, 0 14px 26px -22px rgba(21, 69, 66, .6); }
+.orari__riga { display: grid; grid-template-columns: 7.2em minmax(0, 1fr); gap: 8px; padding: 8px 6px; border-bottom: 1px solid #E6ECEA; }
+.orari__riga:last-child { border-bottom: 0; }
+.orari__riga span:first-child { font-family: var(--f-marchio); }
+.orari__riga small { font: 600 1.02rem/1 var(--f-titoli); letter-spacing: .06em; text-transform: uppercase; color: var(--rosso); }
+.orari__riga.is-today { border-radius: 6px; background: var(--velo); }
+.orari__nota { max-width: 32em; margin: 16px 0 0; font-size: 1rem; color: var(--grigio); }
+.dove { display: grid; gap: 22px; }
+.cartina { overflow: hidden; border: 6px solid #FFFFFF; border-radius: 12px; box-shadow: 0 14px 26px -22px rgba(21, 69, 66, .6); }
+.cartina iframe { display: block; width: 100%; height: 320px; border: 0; }
+.indirizzo { margin: 0; }
+.indirizzo div { display: grid; grid-template-columns: 7.2em minmax(0, 1fr); gap: 10px; padding: 8px 0; border-bottom: 1px solid rgba(21, 69, 66, .16); }
+.indirizzo dt { font: 600 1.02rem/1.6 var(--f-titoli); letter-spacing: .12em; text-transform: uppercase; color: var(--petrolio); }
+.indirizzo dd { margin: 0; overflow-wrap: anywhere; }
+.dove__azioni { display: flex; flex-wrap: wrap; gap: 10px; margin: 0; }
+
+/* domande */
+.capitolo--domande { background: var(--velo); }
+.domande { max-width: 840px; }
+.domande details { border-bottom: 1px solid rgba(21, 69, 66, .22); }
+.domande summary { padding: 14px 4px 10px; font: 600 1.6rem/1.2 var(--f-titoli); letter-spacing: .02em; color: var(--scuro); cursor: pointer; }
+.domande details p { max-width: 46em; margin: 0 0 16px; padding: 0 4px; }
+
+/* ── la chiusura ── */
+.piede { background: var(--scuro); color: #FFFFFF; box-shadow: inset 0 3px 0 var(--turchese); }
+.piede__dentro { max-width: 900px; margin: 0 auto; padding: 44px var(--gutter) 100px; text-align: center; }
+.piede__marchio { margin: 0; font: 400 3rem/1.1 var(--f-marchio); color: #FFFFFF; }
+.piede__sotto { margin: 2px 0 18px; font: 600 1.05rem/1.3 var(--f-titoli); letter-spacing: .3em; text-transform: uppercase; color: var(--turchese); }
+.piede__dove, .piede__orario { margin: 0 0 8px; }
+.piede a { color: #FFFFFF; }
+.piede__cred { max-width: 54em; margin: 18px auto 10px; font-size: .96rem; color: #DCE9E6; }
+.piede__su { font-family: var(--f-marchio); }
+
+/* ── reveal (plumbing) ── */
+.js .reveal { opacity: 0; }
+.js .reveal.in-view { opacity: 1; }
+html:not(.js) .reveal { opacity: 1; }
+.reduced-motion .reveal { opacity: 1 !important; }
+
+/* ── la barra e la lightbox ── */
+.action-bar { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); background: var(--scuro); box-shadow: 0 -3px 0 var(--turchese); transform: translateY(110%); transition: transform .25s; }
+.action-bar.is-visible { transform: translateY(0); }
+.action-bar a { display: flex; align-items: center; justify-content: center; min-height: 54px; padding: 0 4px; color: #fff; font: 400 1rem var(--f-marchio); text-align: center; text-decoration: none; }
+.action-bar a + a { border-left: 1px solid rgba(255, 255, 255, .18); }
+#lightbox { position: fixed; inset: 0; z-index: 90; display: flex; align-items: center; justify-content: center; padding: 24px; background: rgba(12, 36, 34, .95); }
+#lightbox[hidden] { display: none !important; }
+#lightbox img { width: auto; max-width: min(1400px, 100%); max-height: 88vh; }
+#lightboxClose { position: absolute; top: 14px; right: 16px; width: 48px; height: 48px; border: 1px solid rgba(255, 255, 255, .6); border-radius: 50%; background: transparent; color: #fff; font-size: 32px; line-height: 1; cursor: pointer; }
+
+/* ── le larghezze ── */
+@media (max-width: 359px) {
+  .testata__dentro { gap: 6px; }
+  .lingue button { min-width: 31px; }
+  .marchio__nome { font-size: 1.6rem; }
+  .marchio__sotto { letter-spacing: .2em; }
+  .stato { font-size: .92rem; }
+  .coronata__modi button { padding: 2px 14px 0; }
+  .bottone { padding: 0 16px; }
+}
+@media (min-width: 560px) {
+  .chiama { display: inline-flex; }
+  .sala { columns: 2; }
+  .feste { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@media (min-width: 760px) {
+  .action-bar { display: none; }
+  .piede__dentro { padding-bottom: 50px; }
+  .recensioni { columns: 2; }
+  .orari-dove { grid-template-columns: minmax(0, 1fr) minmax(0, 1.2fr); }
+  .cartina iframe { height: 340px; }
+  .doppia { grid-template-columns: minmax(0, 1.1fr) minmax(0, .9fr); gap: 34px; }
+  .doppia--rovescia { grid-template-columns: minmax(0, .9fr) minmax(0, 1.1fr); }
+  .doppia--rovescia .doppia__lato { order: -1; }
+}
+@media (min-width: 960px) {
+  .apertura { grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-items: center; gap: 46px; }
+  .sala { columns: 3; }
+}
+@media (min-width: 1060px) {
+  .testata__dentro { gap: 16px; }
+  .voci { display: flex; flex-wrap: wrap; gap: 4px 20px; margin-left: 28px; }
+  .voci a { padding: 4px 1px 2px; color: #FFFFFF; font: 600 1.18rem var(--f-titoli); letter-spacing: .08em; text-transform: uppercase; text-decoration: none; }
+  .voci a:hover, .voci a[aria-current="true"] { color: var(--turchese); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 7px; }
+  .burger { display: none; }
+  .recensioni { columns: 3; }
+}
+
+/*CORONA*/
+/* la corona di laurea — generato da _mmt_firma.mjs: non modificare a mano */
+.corona__svg { display: block; width: 100%; height: auto; overflow: hidden; background: #F6F2EA; }
+.parete { fill: #F6F2EA; }
+.tavolino { fill: #2B6F62; }
+.tavolino__bordo { fill: #3FC7C0; }
+.ramo { fill: none; stroke: #4E6B2E; stroke-width: 4; stroke-linecap: round; }
+.calice__ombra { fill: #123F38; opacity: .35; }
+.calice { fill: #FFFFFF; fill-opacity: .18; stroke: #9FBFBA; stroke-width: 2.5; stroke-linejoin: round; }
+.calice__luce { fill: none; stroke: #FFFFFF; stroke-width: 4; stroke-linecap: round; opacity: .55; }
+.calice__stelo, .calice__piede { fill: #DDEAE8; stroke: #9FBFBA; stroke-width: 1.5; }
+.bevimi__filo { fill: none; stroke: #8A6A3A; stroke-width: 1.5; }
+.bevimi__carta { fill: #FFFDF6; stroke: #C9A13B; stroke-width: 1.6; }
+.bevimi__buco { fill: #F6F2EA; stroke: #C9A13B; stroke-width: 1; }
+.bevimi__testo { font: 700 19px 'Yanone Kaffeesatz', 'Arial Narrow', sans-serif; letter-spacing: .08em; fill: #154542; }
+.coronata[data-modo="0"] .gusto:not([data-m="0"]) { display: none; }
+.coronata[data-modo="1"] .gusto:not([data-m="1"]) { display: none; }
+.coronata[data-modo="2"] .gusto:not([data-m="2"]) { display: none; }
+.firma-attesa .ramo { stroke-dashoffset: 1; }
+.firma-attesa .foglia, .firma-attesa .fiocco { transform: scale(0); }
+.firma-attesa .guarnizione, .firma-attesa .bevimi { opacity: 0; }
+/*/CORONA*/
